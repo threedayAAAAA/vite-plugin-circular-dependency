@@ -18,19 +18,15 @@ export default () => {
             moduleIdNodeMap.set(moduleInfo.id, moduleNode)
         },
         generateBundle(){
-            console.log('===================generateBundle================');
-            
             const rootModuleNode = getRootModuleNode()
             if(!rootModuleNode){
-                console.error('xxx 文案待定');
+                console.error('Failed to generate entry module');
                 return
             }
             /** 生成模块的依赖树 */
             generateModuleTree(rootModuleNode, moduleIdNodeMap)
             /** 生成模块成环节点的map */
             const circleNodeMap = generateCircleNodeMap(rootModuleNode)
-            console.log('===================circleNodeMap================');
-            console.log(circleNodeMap);
             /** 打印成环的节点 */
             printCircleNodes(circleNodeMap)
         }
