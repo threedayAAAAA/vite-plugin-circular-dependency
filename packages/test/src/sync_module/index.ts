@@ -11,6 +11,7 @@ export const sum = async () => {
         normal2Sum,
         circleDepSum1(),
         indirectCircleDepSum1(), indirectCircleDepSum2(), indirectCircleDepSum3(),
-        depSelfSum1(), depSelfSum2()
+        depSelfSum1(), 
+        // depSelfSum2()
     ].reduce((pre, cur) => pre + cur)
 }

@@ -1,7 +1,7 @@
 export class ModuleNode{
     public moduleId: string;
     public importerModuleIds: string[]
-    public children: Set<ModuleNode> | null
+    public children: Set<ModuleNode> | null = null
 
     constructor(moduleId: string, importerModuleIds: string[]){
         this.moduleId = moduleId

@@ -19,8 +19,6 @@ export default () => {
         },
         generateBundle(){
             console.log('===================generateBundle================');
-            console.log(moduleIdNodeMap);
-            
             
             const rootModuleNode = getRootModuleNode()
             if(!rootModuleNode){
@@ -31,6 +29,8 @@ export default () => {
             generateModuleTree(rootModuleNode, moduleIdNodeMap)
             /** 生成模块成环节点的map */
             const circleNodeMap = generateCircleNodeMap(rootModuleNode)
+            console.log('===================circleNodeMap================');
+            console.log(circleNodeMap);
             /** 打印成环的节点 */
             printCircleNodes(circleNodeMap)
         }
