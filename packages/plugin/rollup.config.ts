@@ -8,7 +8,7 @@ export default {
         file: 'dist/index.mjs', 
         format: 'esm', 
       }, {
-        file: 'dist/index.cjs.js', 
+        file: 'dist/index.cjs', 
         format: 'cjs', 
       }, {
         file: 'dist/index.umd.js',

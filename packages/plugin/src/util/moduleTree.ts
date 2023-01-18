@@ -101,7 +101,11 @@ export function printCircleNodes(circleNodesMap: Map<string, ModuleNode[]>){
         pre[entryModuleId].push(curNodes) 
         return pre
     }, {} as Record<string, ModuleNode[][]>)
-    Object.entries(groupByEntry).forEach(item => {
+    const entries = Object.entries(groupByEntry)
+    if(!entries.length){
+        return 
+    }
+    entries.forEach(item => {
         const [entryModuleId, moduleNodes] = item
         console.group()
         console.log('\n\n' + chalk.yellow(getSimplePath(entryModuleId)))
@@ -110,6 +114,7 @@ export function printCircleNodes(circleNodesMap: Map<string, ModuleNode[]>){
         })
         console.groupEnd()
     })
+    throw new Error('has circular dependencies in this projects')
 }
 
 const commonPre = process.cwd().replaceAll('\\','/')
