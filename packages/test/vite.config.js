@@ -5,6 +5,8 @@ import circleDependency from 'vite-plugin-circular-dependency'
 export default defineConfig({
   plugins: [
     vue(),
-    circleDependency()
+    circleDependency({
+        include: ''
+    })
   ],
 })

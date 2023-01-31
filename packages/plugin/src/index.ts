@@ -1,17 +1,24 @@
 import type { ModuleInfo } from './interface'
+import type { Options } from "./types/options";
 
 import { 
     generateModuleTree, generateCircleNodeMap, printCircleNodes,
-    initRootModuleNode, generateModuleNode 
+    generateModuleNode 
 } from './util'
-import { ModuleNode } from './module/moduleNode'
+import { createContext }  from './context'
 
-const { getRootModuleNode, setRootModuleNode } = initRootModuleNode()
-const moduleIdNodeMap = new Map<string, ModuleNode>()
-
-export default () => {
+export default (options: Options) => {
+    const { 
+        filter,
+        getRootModuleNode,
+        setRootModuleNode,
+        moduleIdNodeMap
+     } = createContext(options)
     return {
         name: 'vite-plugin-circular-dependency',
+        transformInclude(id: string) {
+            return filter(id)
+        },
         moduleParsed: (moduleInfo: ModuleInfo) => {
             const moduleNode = generateModuleNode(moduleInfo)
             setRootModuleNode(moduleNode)
