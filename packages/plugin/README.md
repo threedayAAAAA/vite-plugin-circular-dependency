@@ -63,4 +63,4 @@ export interface Options {
 ```
 
 ## Meta
-[LICENSE (MIT)](./LICENSE)
+[LICENSE (MIT)](/LICENSE)
