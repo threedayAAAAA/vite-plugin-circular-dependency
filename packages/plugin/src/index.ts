@@ -8,12 +8,13 @@ import {
 import { createContext }  from './context'
 
 export default (options: Options) => {
+    const ctx = createContext(options)
     const { 
         filter,
         getRootModuleNode,
         setRootModuleNode,
         moduleIdNodeMap
-     } = createContext(options)
+     } = ctx
     return {
         name: 'vite-plugin-circular-dependency',
         moduleParsed: (moduleInfo: ModuleInfo) => {
@@ -36,7 +37,7 @@ export default (options: Options) => {
             /** 生成模块成环节点的map */
             const circleNodeMap = generateCircleNodeMap(rootModuleNode)
             /** 打印成环的节点 */
-            printCircleNodes(circleNodeMap)
+            printCircleNodes(ctx, circleNodeMap)
         }
     }
 }

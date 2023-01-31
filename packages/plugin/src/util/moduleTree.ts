@@ -1,7 +1,5 @@
 import type { ModuleNode } from '../module/moduleNode'
 
-import chalk from 'chalk'
-
 /** 生成模块的依赖树 */
 export function generateModuleTree(rootModuleNode: ModuleNode, moduleIdNodeMap: Map<string, ModuleNode>){
     const moduleNodeCreatedSet = new Set<string>()
@@ -89,36 +87,3 @@ function insertCircleNodesToMap(circleNodes: ModuleNode[], circleNodesMap: Map<s
     circleNodesMap.set(circleId, sortedCircleNodes)
 }
 
-
-/** 打印成环的节点 */
-export function printCircleNodes(circleNodesMap: Map<string, ModuleNode[]>){
-    const circleNodes = Array.from(circleNodesMap.values()).filter(item => item.length)
-    const groupByEntry = circleNodes.reduce((pre, curNodes) => {
-        const { moduleId: entryModuleId } = curNodes[0]
-        if(!pre[entryModuleId]){
-            pre[entryModuleId] = []
-        }
-        pre[entryModuleId].push(curNodes) 
-        return pre
-    }, {} as Record<string, ModuleNode[][]>)
-    const entries = Object.entries(groupByEntry)
-    if(!entries.length){
-        return 
-    }
-    entries.forEach(item => {
-        const [entryModuleId, moduleNodes] = item
-        console.group()
-        console.log('\n\n' + chalk.yellow(getSimplePath(entryModuleId)))
-        moduleNodes.forEach(currentCir => {
-            console.log('\t' + currentCir.map(node => chalk.red(getSimplePath(node.moduleId))).join(chalk.blue('->')))
-        })
-        console.groupEnd()
-    })
-    throw new Error('has circular dependencies in this project')
-}
-
-const commonPre = process.cwd().replaceAll('\\','/')
-/** 获取模块简化的路径 */
-function getSimplePath(path: string){
-    return path.replace(commonPre, '')
-}

@@ -1,10 +1,11 @@
-import type { Options } from "./types/options";
+import type { Options, Context } from "./types";
 import type { ModuleNode } from './module/moduleNode'
 
 import { createFilter } from '@rollup/pluginutils'
 import { initRootModuleNode } from './util'
+import { join } from 'path'
 
-export function createContext(options: Options){
+export function createContext(options: Options): Context{
     const formatedOptions = formatOptions(options)
     
     const { include, exclude } = formatedOptions
@@ -12,6 +13,7 @@ export function createContext(options: Options){
 
     const { getRootModuleNode, setRootModuleNode, moduleIdNodeMap } = initModule()
     return {
+        ...formatedOptions,
         filter,
         getRootModuleNode,
         setRootModuleNode,
@@ -19,14 +21,21 @@ export function createContext(options: Options){
     }
 }
 
-function formatOptions(options: Options): Options{
-    const { 
+function formatOptions(options: Options): Required<Options>{
+    let { 
         include = [/\.[jt]sx?$/, /\.vue$/, /\.vue\?vue/, /\.svelte$/], 
-        exclude = [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/] 
+        exclude = [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/],
+        outputFilePath = '',
+        moduleAbsolutePath = false
     } = options
+    if(outputFilePath){
+        outputFilePath = join(process.cwd(), outputFilePath)
+    }
     return {
         include,
-        exclude
+        exclude,
+        outputFilePath,
+        moduleAbsolutePath
     }
 }
 
