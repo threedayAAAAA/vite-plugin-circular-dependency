@@ -26,4 +26,4 @@ export interface Options {
      * @default false
      */
     moduleAbsolutePath?: boolean
-  }
+}
