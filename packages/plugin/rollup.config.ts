@@ -1,4 +1,4 @@
-import typescript from  '@rollup/plugin-typescript'
+import typescript from  'rollup-plugin-typescript2'
 import { terser } from 'rollup-plugin-terser';
 
 export default {
@@ -7,17 +7,26 @@ export default {
       {
         file: 'dist/index.mjs', 
         format: 'esm', 
-      }, {
+      }, 
+      {
         file: 'dist/index.cjs', 
         format: 'cjs', 
-      }, {
+      }, 
+      {
         file: 'dist/index.umd.js',
-        name: 'GLWidget',
+        name: 'CircularDependency',
         format: 'umd',
       }
     ],
     plugins: [
-        typescript(),
+        typescript({
+            tsconfigOverride: {
+                compilerOptions: {
+                    module: 'ESNext',
+                },
+            },
+            useTsconfigDeclarationDir: true, // 使用tsconfig中的声明文件目录配置
+        }),
         terser()
     ]
   }
