@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [
     vue(),
     circleDependency({
-        include: ''
+        exclude: './src/sync_module/circleDep/*',
     })
   ],
 })

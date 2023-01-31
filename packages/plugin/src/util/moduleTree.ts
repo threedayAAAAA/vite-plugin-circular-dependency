@@ -114,7 +114,7 @@ export function printCircleNodes(circleNodesMap: Map<string, ModuleNode[]>){
         })
         console.groupEnd()
     })
-    throw new Error('has circular dependencies in this projects')
+    throw new Error('has circular dependencies in this project')
 }
 
 const commonPre = process.cwd().replaceAll('\\','/')

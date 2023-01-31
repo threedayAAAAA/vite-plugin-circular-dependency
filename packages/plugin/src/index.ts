@@ -16,10 +16,11 @@ export default (options: Options) => {
      } = createContext(options)
     return {
         name: 'vite-plugin-circular-dependency',
-        transformInclude(id: string) {
-            return filter(id)
-        },
         moduleParsed: (moduleInfo: ModuleInfo) => {
+            const { id } = moduleInfo
+            if(!filter(id)){
+                return
+            }
             const moduleNode = generateModuleNode(moduleInfo)
             setRootModuleNode(moduleNode)
             moduleIdNodeMap.set(moduleInfo.id, moduleNode)
