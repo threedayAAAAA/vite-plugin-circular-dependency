@@ -16,7 +16,7 @@ export default (options: Options) => {
         moduleIdNodeMap
      } = ctx
     return {
-        name: 'vite-plugin-circular-dependency',
+        name: 'rollup-plugin-circular-dependency',
         moduleParsed: (moduleInfo: ModuleInfo) => {
             const { id } = moduleInfo
             if(!filter(id)){
