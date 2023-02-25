@@ -1,8 +1,24 @@
-/src/sync_module/indirectCircleDep/indirectCircleDep1.js
-	/src/sync_module/indirectCircleDep/indirectCircleDep1.js->
-	/src/sync_module/indirectCircleDep/indirectCircleDep2.js->
-	/src/sync_module/indirectCircleDep/indirectCircleDep3.js
-
-/src/sync_module/depSelf/depSelf1.js
-	/src/sync_module/depSelf/depSelf1.js
-
+{
+	"/src/sync_module/circleDep/circleDep1.js": [
+		[
+			"/src/sync_module/circleDep/circleDep1.js",
+			"/src/sync_module/circleDep/circleDep2.js"
+		],
+		[
+			"/src/sync_module/circleDep/circleDep1.js",
+			"/src/sync_module/circleDep/circleDep3.js"
+		]
+	],
+	"/src/sync_module/indirectCircleDep/indirectCircleDep1.js": [
+		[
+			"/src/sync_module/indirectCircleDep/indirectCircleDep1.js",
+			"/src/sync_module/indirectCircleDep/indirectCircleDep2.js",
+			"/src/sync_module/indirectCircleDep/indirectCircleDep3.js"
+		]
+	],
+	"/src/sync_module/depSelf/depSelf1.js": [
+		[
+			"/src/sync_module/depSelf/depSelf1.js"
+		]
+	]
+}

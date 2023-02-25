@@ -39,35 +39,36 @@ export function generateCircleNodeMap(rootModuleNode: ModuleNode){
     const circleNodesMap = new Map<string, ModuleNode[]>()
     // 将已经dfs过的节点存起来 避免重复遍历
     const visitedNodeIdSet = new Set<string>()
-    depthFirstTraversal(rootModuleNode, new Set())
-    return circleNodesMap
 
     /** 深度优先遍历树 用一个数组将沿途的节点都记录下来 如果发现当前节点之前路径已经访问过了 证明有环 */
-    function depthFirstTraversal(node: ModuleNode, pathNodeIdSet: Set<string>){
+    function depthFirstTraversal(node: ModuleNode, visitPathSet: Set<string>){
         const { moduleId, children } = node
         // 已经被访问过直接结束
         if(visitedNodeIdSet.has(moduleId)){
             return
         }
-        // 先将自己加入路径中 避免出现自己环自己的场景
-        pathNodeIdSet.add(moduleId)
+        // 先将自己加入路径中 避免出现自己引用自己的场景
+        visitPathSet.add(moduleId)
         children?.forEach(childNode => {
             const { moduleId: childModuleId } = childNode
-            if(pathNodeIdSet.has(childModuleId)){
-                insertCircleNodesToMap(generateCircleNodes(childNode, pathNodeIdSet), circleNodesMap)
+            if(visitPathSet.has(childModuleId)){
+                insertCircleNodesToMap(generateCircleNodes(childNode, visitPathSet), circleNodesMap)
                 return 
             } else {
-                depthFirstTraversal(childNode, pathNodeIdSet)
+                depthFirstTraversal(childNode, visitPathSet)
             }
         })
         visitedNodeIdSet.add(moduleId)
         // 将当前节点从路径中弹出
-        pathNodeIdSet.delete(moduleId)
+        visitPathSet.delete(moduleId)
     }
+
+    depthFirstTraversal(rootModuleNode, new Set())
+    return circleNodesMap
 }
 
 /** 生成某个节点的 环上的所有节点 */
-function generateCircleNodes(node: ModuleNode, pathNodeIdSet: Set<string>): ModuleNode[]{
+function generateCircleNodes(node: ModuleNode, visitPathSet: Set<string>): ModuleNode[]{
     const result: ModuleNode[] = []
     let currentNode: ModuleNode | undefined = node
     do{
@@ -75,7 +76,7 @@ function generateCircleNodes(node: ModuleNode, pathNodeIdSet: Set<string>): Modu
         if(!currentNode.children){
             break
         }
-        currentNode = Array.from(currentNode.children).find(item => pathNodeIdSet.has(item.moduleId))
+        currentNode = Array.from(currentNode.children).find(item => visitPathSet.has(item.moduleId))
     } while(currentNode && currentNode !== node)
     return  result
 }
