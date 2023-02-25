@@ -26,7 +26,8 @@ function formatOptions(options: Options): Required<Options>{
         include = [/\.[jt]sx?$/, /\.vue$/, /\.vue\?vue/, /\.svelte$/], 
         exclude = [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/],
         outputFilePath = '',
-        moduleAbsolutePath = false
+        moduleAbsolutePath = false,
+        circleImportThrowErr = true
     } = options
     if(outputFilePath){
         outputFilePath = join(process.cwd(), outputFilePath)
@@ -35,7 +36,8 @@ function formatOptions(options: Options): Required<Options>{
         include,
         exclude,
         outputFilePath,
-        moduleAbsolutePath
+        moduleAbsolutePath,
+        circleImportThrowErr
     }
 }
 

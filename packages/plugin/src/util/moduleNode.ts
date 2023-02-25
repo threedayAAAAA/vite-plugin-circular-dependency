@@ -1,6 +1,10 @@
-import type { ModuleInfo } from '../interface'
-
 import { ModuleNode } from '../module/moduleNode'
+
+export type ModuleInfo = {
+    id: string;
+    importedIds: string[];
+    dynamicallyImportedIds: string[]
+}
 
 /** 获取模块所有引用的 模块id */
 export function getModuleImportIds(moduleInfo: ModuleInfo): string[]{

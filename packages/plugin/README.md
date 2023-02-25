@@ -1,9 +1,8 @@
-# vite-plugin-circular-dependency
+## vite-plugin-circular-dependency
 
-## Introduce
 A build-time vite plugin that can check circular imports, self-introductions, is compatible with dynamic imports or static imports, and has nothing to do with the front-end framework
 
-## DEMO
+### DEMO
 
 ```js
 // Configure the output path, 
@@ -32,14 +31,14 @@ export default defineConfig({
 ![image](https://user-images.githubusercontent.com/38604634/221328836-62b58f09-c11c-4429-a143-e92ef9aefa9f.png)
 
 
-## Installation
+### Installation
 
 ```ts
 npm i -D vite-plugin-circular-dependency
 // yarn add --dev vite-plugin-circular-dependency
 // pnpm i --dev vite-plugin-circular-dependency
 ```
-## Usage
+### Usage
 
 Please use this plugin when building
 
@@ -56,7 +55,7 @@ export default defineConfig({
 })
 ```
 
-## Options
+### Options
 
 ```js
 export interface Options {
@@ -85,5 +84,12 @@ export interface Options {
      * @default false
      */
     moduleAbsolutePath?: boolean
+
+    /**
+     * Whether to throw an error when a circular import exists
+     *
+     * @default true
+     */
+    circleImportThrowErr?: boolean
 }
 ```

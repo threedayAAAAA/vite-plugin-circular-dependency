@@ -26,4 +26,11 @@ export interface Options {
      * @default false
      */
     moduleAbsolutePath?: boolean
+
+    /**
+     * Whether to throw an error when a circular import exists
+     *
+     * @default true
+     */
+    circleImportThrowErr?: boolean
 }

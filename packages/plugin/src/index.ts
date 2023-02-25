@@ -1,4 +1,4 @@
-import type { ModuleInfo } from './interface'
+import type { ModuleInfo } from './util/moduleNode'
 import type { Options } from "./types/options";
 import type { Plugin } from 'vite';
 

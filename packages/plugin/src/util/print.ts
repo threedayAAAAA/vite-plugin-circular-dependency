@@ -2,7 +2,7 @@ import type { ModuleNode } from '../module/moduleNode'
 import type { Context } from '../types'
 
 import chalk from 'chalk'
-import { writeFileSync } from 'fs'
+import { writeFileSync } from 'node:fs'
 
 /** 打印成环的节点 */
 export function printCircleNodes(ctx: Context, circleNodesMap: Map<string, ModuleNode[]>){
@@ -24,7 +24,9 @@ export function printCircleNodes(ctx: Context, circleNodesMap: Map<string, Modul
     } else {
         consolePrint(ctx, entries)
     }
-    throw new Error('has circular dependencies in this project')
+    if(ctx.circleImportThrowErr){
+        throw new Error('has circular dependencies in this project')
+    }
 }
 
 /** 输出至文件 */
