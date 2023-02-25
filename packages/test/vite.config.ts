@@ -6,12 +6,8 @@ export default defineConfig({
   plugins: [
     vue(),
     circleDependency({
-        // exclude: './src/sync_module/circleDep/*',
         outputFilePath: './circleDep',
         circleImportThrowErr: false,
-        // formatOutModulePath: path => {
-        //     return path + '666'
-        // }
     })
   ],
 })

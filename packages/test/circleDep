@@ -20,5 +20,27 @@
 		[
 			"src\\sync_module\\depSelf\\depSelf1.js"
 		]
+	],
+	"src\\dasync_module\\circleDep\\data\\data1.js": [
+		[
+			"src\\dasync_module\\circleDep\\data\\data1.js",
+			"src\\dasync_module\\circleDep\\data\\data2.js"
+		],
+		[
+			"src\\dasync_module\\circleDep\\data\\data1.js",
+			"src\\dasync_module\\circleDep\\data\\data3.js"
+		]
+	],
+	"src\\dasync_module\\depSelf\\depSelf.js": [
+		[
+			"src\\dasync_module\\depSelf\\depSelf.js"
+		]
+	],
+	"src\\dasync_module\\indirectCircleDep\\data\\data1.js": [
+		[
+			"src\\dasync_module\\indirectCircleDep\\data\\data1.js",
+			"src\\dasync_module\\indirectCircleDep\\data\\data2.js",
+			"src\\dasync_module\\indirectCircleDep\\data\\data3.js"
+		]
 	]
 }

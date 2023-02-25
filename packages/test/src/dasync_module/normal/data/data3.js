@@ -1,0 +1,1 @@
+export const count1 = 100;
