@@ -4,6 +4,7 @@ import type { ModuleNode } from './module/moduleNode'
 import { createFilter } from '@rollup/pluginutils'
 import { initRootModuleNode } from './util'
 import { join } from 'node:path'
+import { relative } from 'node:path'
 
 export function createContext(options: Options): Context{
     const formatedOptions = formatOptions(options)
@@ -26,8 +27,8 @@ function formatOptions(options: Options): Required<Options>{
         include = [/\.[jt]sx?$/, /\.vue$/, /\.vue\?vue/, /\.svelte$/], 
         exclude = [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/],
         outputFilePath = '',
-        moduleAbsolutePath = false,
         circleImportThrowErr = true,
+        formatOutModulePath,
         formatOut,
     } = options
     if(outputFilePath){
@@ -37,10 +38,14 @@ function formatOptions(options: Options): Required<Options>{
         include,
         exclude,
         outputFilePath,
-        moduleAbsolutePath,
         circleImportThrowErr,
+        formatOutModulePath: formatOutModulePath ?? defaultFormatOutModulePath,
         formatOut: formatOut ?? defaultFormatOut 
     }
+}
+
+function defaultFormatOutModulePath(path: string){
+    return relative(process.cwd(), path)
 }
 
 function defaultFormatOut(data: CircleData){

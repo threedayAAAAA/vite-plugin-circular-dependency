@@ -35,11 +35,7 @@ function filterNodes(circleNodesMap: Map<string, ModuleNode[]>){
 }
 
 function transformNodeData(ctx: Context, data: ModuleNode[][]): ModuleNode['moduleId'][][]{
-    return data.map(nodeArr => nodeArr.map(item => formateNodesPath(ctx, item)))
-}
-
-function formateNodesPath(ctx: Context, node: ModuleNode){
-    return getModulePath(ctx, node.moduleId)
+    return data.map(nodeArr => nodeArr.map(item => ctx.formatOutModulePath(item.moduleId)))
 }
 
 function groupByFirstNodePath(data: ModuleNode['moduleId'][][]){
@@ -68,16 +64,10 @@ function consolePrint(ctx: Context, data: CircleData){
     Object.entries(data).forEach(item => {
         const [entryModuleId, moduleNodes] = item
         console.group()
-        console.log('\n\n' + chalk.yellow(getModulePath(ctx, entryModuleId)))
+        console.log('\n\n' + chalk.yellow(ctx.formatOutModulePath(entryModuleId)))
         moduleNodes.forEach(currentCir => {
-            console.log('\t' + currentCir.map(node => chalk.red(node)).join(chalk.blue('->')))
+            console.log('\t' + currentCir.map(node => chalk.red(node)).join(chalk.blue(' -> ')))
         })
         console.groupEnd()
     })
-}
-
-const commonPre = process.cwd().replaceAll('\\','/')
-/** 获取模块路径 */
-function getModulePath(ctx: Context, path: string){
-    return ctx.moduleAbsolutePath ? path : path.replace(commonPre, '')
 }

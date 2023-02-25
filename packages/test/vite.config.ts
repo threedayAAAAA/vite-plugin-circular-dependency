@@ -9,6 +9,9 @@ export default defineConfig({
         // exclude: './src/sync_module/circleDep/*',
         outputFilePath: './circleDep',
         circleImportThrowErr: false,
+        // formatOutModulePath: path => {
+        //     return path + '666'
+        // }
     })
   ],
 })
