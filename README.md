@@ -1,9 +1,8 @@
-# vite-plugin-circular-dependency
+## vite-plugin-circular-dependency
 
-## Introduce
 A build-time vite plugin that can check circular imports, self-introductions, is compatible with dynamic imports or static imports, and has nothing to do with the front-end framework
 
-## DEMO
+### DEMO
 
 ```js
 // Configure the output path, 
@@ -32,14 +31,14 @@ export default defineConfig({
 ![image](https://user-images.githubusercontent.com/38604634/221328836-62b58f09-c11c-4429-a143-e92ef9aefa9f.png)
 
 
-## Installation
+### Installation
 
 ```ts
 npm i -D vite-plugin-circular-dependency
 // yarn add --dev vite-plugin-circular-dependency
 // pnpm i --dev vite-plugin-circular-dependency
 ```
-## Usage
+### Usage
 
 Please use this plugin when building
 
@@ -56,9 +55,9 @@ export default defineConfig({
 })
 ```
 
-## Options
+### Options
 
-```js
+```ts
 export interface Options {
     /**
      * Rules to include transforming target.
@@ -80,10 +79,26 @@ export interface Options {
     outputFilePath?: string
 
     /**
-     * Whether the scan result shows the absolute path of the module
+     * Whether to throw an error when a circular import exists
      *
-     * @default false
+     * @default true
      */
-    moduleAbsolutePath?: boolean
+    circleImportThrowErr?: boolean
+
+    /**
+     * Format the path of the output node. 
+     * By default, vite.config will be used as the root path to generate a relative path
+     *
+     * @default function
+     */
+    formatOutModulePath?: (path: string) => string
+
+    /**
+     * The result of formatted output 
+     * will also affect the data format in the console print or output file
+     *
+     * @default (data: CircleData) => data
+     */
+    formatOut?: (data: CircleData) => any
 }
 ```

@@ -79,18 +79,19 @@ export interface Options {
     outputFilePath?: string
 
     /**
-     * Whether the scan result shows the absolute path of the module
-     *
-     * @default false
-     */
-    moduleAbsolutePath?: boolean
-
-    /**
      * Whether to throw an error when a circular import exists
      *
      * @default true
      */
     circleImportThrowErr?: boolean
+
+    /**
+     * Format the path of the output node. 
+     * By default, vite.config will be used as the root path to generate a relative path
+     *
+     * @default function
+     */
+    formatOutModulePath?: (path: string) => string
 
     /**
      * The result of formatted output 
