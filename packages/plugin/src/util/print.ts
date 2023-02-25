@@ -21,9 +21,11 @@ function validateCircleData(ctx: Context, data: CircleData){
 
 /** 格式化成环节点的数据 */
 function formatData(ctx: Context, data: Map<string, ModuleNode[]>): CircleData{
-    return groupByFirstNodePath(
-        transformNodeData(ctx, 
-            filterNodes(data)
+    return ctx.formatOut(
+        groupByFirstNodePath(
+            transformNodeData(ctx, 
+                filterNodes(data)
+            )
         )
     )
 }

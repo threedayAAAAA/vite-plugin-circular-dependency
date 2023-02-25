@@ -20,5 +20,6 @@
 		[
 			"/src/sync_module/depSelf/depSelf1.js"
 		]
-	]
+	],
+	"test": []
 }

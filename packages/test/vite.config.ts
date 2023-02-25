@@ -7,8 +7,8 @@ export default defineConfig({
     vue(),
     circleDependency({
         // exclude: './src/sync_module/circleDep/*',
-        // outputFilePath: './circleDep',
-        circleImportThrowErr: false
+        outputFilePath: './circleDep',
+        circleImportThrowErr: false,
     })
   ],
 })

@@ -1,4 +1,4 @@
-import type { Options, Context } from "./types";
+import type { Options, Context, CircleData } from "./types";
 import type { ModuleNode } from './module/moduleNode'
 
 import { createFilter } from '@rollup/pluginutils'
@@ -27,7 +27,8 @@ function formatOptions(options: Options): Required<Options>{
         exclude = [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/],
         outputFilePath = '',
         moduleAbsolutePath = false,
-        circleImportThrowErr = true
+        circleImportThrowErr = true,
+        formatOut,
     } = options
     if(outputFilePath){
         outputFilePath = join(process.cwd(), outputFilePath)
@@ -37,8 +38,13 @@ function formatOptions(options: Options): Required<Options>{
         exclude,
         outputFilePath,
         moduleAbsolutePath,
-        circleImportThrowErr
+        circleImportThrowErr,
+        formatOut: formatOut ?? defaultFormatOut 
     }
+}
+
+function defaultFormatOut(data: CircleData){
+    return data
 }
 
 function initModule(){

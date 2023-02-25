@@ -1,4 +1,7 @@
 import type { FilterPattern } from '@rollup/pluginutils'
+import type { ModuleNode } from '../module/moduleNode'
+
+export type CircleData = Record<string, ModuleNode['moduleId'][][]>
 
 export interface Options {
     /**
@@ -33,4 +36,12 @@ export interface Options {
      * @default true
      */
     circleImportThrowErr?: boolean
+
+    /**
+     * The result of formatted output 
+     * will also affect the data format in the console print or output file
+     *
+     * @default (data: CircleData) => data
+     */
+    formatOut?: (data: CircleData) => any
 }
