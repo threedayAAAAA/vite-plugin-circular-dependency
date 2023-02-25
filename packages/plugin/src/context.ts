@@ -3,7 +3,7 @@ import type { ModuleNode } from './module/moduleNode'
 
 import { createFilter } from '@rollup/pluginutils'
 import { initRootModuleNode } from './util'
-import { join } from 'path'
+import { join } from 'node:path'
 
 export function createContext(options: Options): Context{
     const formatedOptions = formatOptions(options)

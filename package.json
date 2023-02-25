@@ -1,5 +1,5 @@
 {
-  "name": "rollup-plugin-circular-dependency",
+  "name": "vite-plugin-circular-dependency",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

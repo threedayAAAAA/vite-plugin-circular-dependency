@@ -1,35 +1,61 @@
-## rollup-plugin-circular-dependency
+# vite-plugin-circular-dependency
 
-### Installation
+## Introduce
+A build-time vite plugin that can check circular imports, self-introductions, is compatible with dynamic imports or static imports, and has nothing to do with the front-end framework
 
-Run
-
-> npm i --dev rollup-plugin-circular-dependency
-
-or  
-
-> yarn add --dev rollup-plugin-circular-dependency
-
-or  
-
-> pnpm i --dev rollup-plugin-circular-dependency
-
-## Usage
-
-Create a `rollup.config.js` [configuration file](https://www.rollupjs.org/guide/en/#configuration-files) and import the plugin:
+## DEMO
 
 ```js
-import circleDependency from 'rollup-plugin-circular-dependency'
-
-export default {
-  input: 'src/index.js',
-  output: {
-    dir: 'output',
-    format: 'cjs'
-  },
-  plugins: [circleDependency()]
-};
+// Configure the output path, 
+// a scan report will be generated to the specified path
+export default defineConfig({
+  plugins: [
+    vue(),
+    circleDependency({
+        outputFilePath: './circleDep'
+    })
+  ],
+})
 ```
+
+![image](https://user-images.githubusercontent.com/38604634/221328375-8dc381f1-6895-4875-93a0-d3d675153894.png)
+
+```js
+// Without any configuration, it will be printed on the console
+export default defineConfig({
+  plugins: [
+    circleDependency()
+  ],
+})
+```
+
+![image](https://user-images.githubusercontent.com/38604634/221328836-62b58f09-c11c-4429-a143-e92ef9aefa9f.png)
+
+
+## Installation
+
+```ts
+npm i -D vite-plugin-circular-dependency
+// yarn add --dev vite-plugin-circular-dependency
+// pnpm i --dev vite-plugin-circular-dependency
+```
+## Usage
+
+Please use this plugin when building
+
+In your `vite.config.(js|ts)` import the plugin and register it.
+
+```typescript
+import { defineConfig } from 'vite'
+import circleDependency from 'vite-plugin-circular-dependency'
+
+export default defineConfig({
+  plugins: [
+    circleDependency()
+  ],
+})
+```
+
 ## Options
 
 ```js
@@ -61,6 +87,3 @@ export interface Options {
     moduleAbsolutePath?: boolean
 }
 ```
-
-## Meta
-[LICENSE (MIT)](./LICENSE)

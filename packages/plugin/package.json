@@ -1,6 +1,6 @@
 {
-  "name": "rollup-plugin-circular-dependency",
-  "version": "0.1.1",
+  "name": "vite-plugin-circular-dependency",
+  "version": "0.2.0",
   "description": "Detect circular dependencies",
   "module": "dist/index.mjs",
   "scripts": {
@@ -10,29 +10,29 @@
   "types": "dist/src/index.d.ts",
   "exports": {
     ".": {
-        "import": "./dist/index.mjs",
-        "require": "./dist/index.cjs"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     }
   },
   "files": [
     "dist"
   ],
   "keywords": [
-    "rollup-plugin",
-    "rollup plugin",
-    "rollup",
+    "vite-plugin",
+    "vite plugin",
+    "vite",
     "dependencies",
     "circular-dependencies"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/threedayAAAAA/rollup-plugin-circular-dependency.git",
+    "url": "git+https://github.com/threedayAAAAA/vite-plugin-circular-dependency.git",
     "directory": "packages/plugin"
   },
   "bugs": {
-    "url": "https://github.com/threedayAAAAA/rollup-plugin-circular-dependency/issues"
+    "url": "https://github.com/threedayAAAAA/vite-plugin-circular-dependency/issues"
   },
-  "homepage": "https://github.com/threedayAAAAA/rollup-plugin-circular-dependency#readme",
+  "homepage": "https://github.com/threedayAAAAA/vite-plugin-circular-dependency#readme",
   "author": "threedayAAAAA",
   "license": "MIT",
   "dependencies": {
@@ -46,6 +46,7 @@
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.34.1",
     "tslib": "2.4.1",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.4",
+    "vite": "^4.0.0"
   }
 }

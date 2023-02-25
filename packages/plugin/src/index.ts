@@ -1,5 +1,6 @@
 import type { ModuleInfo } from './interface'
 import type { Options } from "./types/options";
+import type { Plugin } from 'vite';
 
 import { 
     generateModuleTree, generateCircleNodeMap, printCircleNodes,
@@ -16,7 +17,7 @@ export default (options: Options) => {
         moduleIdNodeMap
      } = ctx
     return {
-        name: 'rollup-plugin-circular-dependency',
+        name: 'vite-plugin-circular-dependency',
         moduleParsed: (moduleInfo: ModuleInfo) => {
             const { id } = moduleInfo
             if(!filter(id)){
@@ -39,5 +40,5 @@ export default (options: Options) => {
             /** 打印成环的节点 */
             printCircleNodes(ctx, circleNodeMap)
         }
-    }
+    } as unknown as Plugin
 }
