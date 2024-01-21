@@ -2,14 +2,15 @@
   "name": "vite-plugin-circular-dependency",
   "version": "0.2.1",
   "description": "Detect circular dependencies",
-  "module": "dist/index.mjs",
+  "module": "./dist/index.mjs",
   "scripts": {
     "build": "rollup --config rollup.config.ts --configPlugin typescript"
   },
   "type": "module",
-  "types": "dist/src/index.d.ts",
+  "types": "./dist/src/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/src/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     }
