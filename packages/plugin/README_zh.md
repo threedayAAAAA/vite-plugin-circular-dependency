@@ -1,14 +1,12 @@
 ## vite-plugin-circular-dependency
 
-English | [中文](README_zh.md)
+与框架无关的构建时 Vite 插件，旨在检测循环导入和自引用，兼容动态和静态导入。
 
-A framework-agnostic build-time Vite plugin designed to detect circular imports and self-references, compatible with dynamic and static imports.
-
-### DEMO
+### 示例
 
 ```js
-// Configure the output path, 
-// a scan report will be generated to the specified path
+// 配置输出路径，
+// 扫描报告将生成到指定路径
 export default defineConfig({
   plugins: [
     vue(),
@@ -22,7 +20,7 @@ export default defineConfig({
 ![image](https://user-images.githubusercontent.com/38604634/221328375-8dc381f1-6895-4875-93a0-d3d675153894.png)
 
 ```js
-// Without any configuration, it will be printed on the console
+// 如果没有任何配置，结果将打印在控制台上
 export default defineConfig({
   plugins: [
     circleDependency()
@@ -33,18 +31,18 @@ export default defineConfig({
 ![image](https://user-images.githubusercontent.com/38604634/221328836-62b58f09-c11c-4429-a143-e92ef9aefa9f.png)
 
 
-### Installation
+### 安装
 
 ```ts
 npm i -D vite-plugin-circular-dependency
 // yarn add --dev vite-plugin-circular-dependency
 // pnpm i --dev vite-plugin-circular-dependency
 ```
-### Usage
+### 使用方法
 
-Please use this plugin when building
+请在构建时使用此插件。
 
-In your `vite.config.(js|ts)` import the plugin and register it.
+在您的 `vite.config.(js|ts)` 中导入插件并注册它。
 
 ```typescript
 import { defineConfig } from 'vite'
@@ -57,47 +55,47 @@ export default defineConfig({
 })
 ```
 
-### Options
+### 配置选项
 
 ```ts
 export interface Options {
     /**
-     * Rules to include transforming target.
+     * 包含转换目标的规则。
      *
      * @default [/\.[jt]sx?$/, /\.vue\??/]
      */
     include?: FilterPattern
 
     /**
-     * Rules to exclude scan target.
+     * 排除扫描目标的规则。
      *
      * @default [/node_modules/, /\.git/]
      */
     exclude?: FilterPattern
 
     /**
-     * The file address of the scan result output, the default console print
+     * 扫描结果输出的文件地址，默认为控制台打印。
      */
     outputFilePath?: string
 
     /**
-     * Whether to throw an error when a circular import exists
+     * 当存在循环导入时是否抛出错误。
      *
      * @default true
      */
     circleImportThrowErr?: boolean
 
     /**
-     * Format the path of the output node. 
-     * By default, vite.config will be used as the root path to generate a relative path
+     * 格式化输出节点路径。
+     * 默认情况下，会使用 vite.config 作为根路径生成相对路径。
      *
      * @default function
      */
     formatOutModulePath?: (path: string) => string
 
     /**
-     * The result of formatted output 
-     * will also affect the data format in the console print or output file
+     * 格式化输出结果。
+     * 这也会影响控制台打印或输出文件中的数据格式。
      *
      * @default (data: CircleData) => data
      */
