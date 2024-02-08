@@ -14,7 +14,7 @@ export function printCircleNodes(ctx: Context, circleNodesMap: Map<string, Modul
 }
 
 function validateCircleData(ctx: Context, data: CircleData){
-    if(ctx.circleImportThrowErr && data.length){
+    if(ctx.circleImportThrowErr && Object.keys(data).length){
         throw new Error('has circular dependencies in this project')
     }
 }
