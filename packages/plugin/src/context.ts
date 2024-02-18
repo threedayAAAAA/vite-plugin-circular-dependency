@@ -2,7 +2,7 @@ import type { Options, Context, CircleData } from "./types";
 import type { ModuleNode } from './module/moduleNode'
 
 import { createFilter } from '@rollup/pluginutils'
-import { initRootModuleNode } from './util'
+import { initRootModuleId } from './util'
 import { join } from 'node:path'
 import { relative } from 'node:path'
 
@@ -12,12 +12,12 @@ export function createContext(options: Options): Context{
     const { include, exclude } = formatedOptions
     const filter = createFilter(include, exclude)
 
-    const { getRootModuleNode, setRootModuleNode, moduleIdNodeMap } = initModule()
+    const { getRootModuleId, setRootModuleId, moduleIdNodeMap } = initModule()
     return {
         ...formatedOptions,
         filter,
-        getRootModuleNode,
-        setRootModuleNode,
+        getRootModuleId,
+        setRootModuleId,
         moduleIdNodeMap
     }
 }
@@ -53,11 +53,11 @@ function defaultFormatOut(data: CircleData){
 }
 
 function initModule(){
-    const { getRootModuleNode, setRootModuleNode } = initRootModuleNode()
+    const { getRootModuleId, setRootModuleId } = initRootModuleId()
     const moduleIdNodeMap = new Map<string, ModuleNode>()
     return {
-        getRootModuleNode,
-        setRootModuleNode,
+        getRootModuleId,
+        setRootModuleId,
         moduleIdNodeMap
     }
 }

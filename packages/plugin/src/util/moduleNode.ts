@@ -4,6 +4,7 @@ export type ModuleInfo = {
     id: string;
     importedIds: string[];
     dynamicallyImportedIds: string[]
+    importers: any;
 }
 
 /** 获取模块所有引用的 模块id */
@@ -19,15 +20,15 @@ export function generateModuleNode(moduleInfo: ModuleInfo){
     return new ModuleNode(id, importerModuleIds)
 }
 
-export function initRootModuleNode(){
-    let rootModuleNode: ModuleNode | null
+export function initRootModuleId(){
+    let rootModuleId: string
     return {
-        getRootModuleNode(){
-            return rootModuleNode
+        getRootModuleId(){
+            return rootModuleId
         },
-        setRootModuleNode(moduleNode: ModuleNode){
-            if(!rootModuleNode){
-                rootModuleNode = moduleNode
+        setRootModuleId(moduleId: string){
+            if(!rootModuleId){
+                rootModuleId = moduleId
             }
         }
     }

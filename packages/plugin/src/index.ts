@@ -12,23 +12,30 @@ export default (options: Options) => {
     const ctx = createContext(options)
     const { 
         filter,
-        getRootModuleNode,
-        setRootModuleNode,
+        getRootModuleId,
+        setRootModuleId,
         moduleIdNodeMap
      } = ctx
     return {
         name: 'vite-plugin-circular-dependency',
+        load: (id: string) => {
+            if(!filter(id)){
+                return
+            }
+
+            setRootModuleId(id)
+        },
         moduleParsed: (moduleInfo: ModuleInfo) => {
             const { id } = moduleInfo
             if(!filter(id)){
                 return
             }
             const moduleNode = generateModuleNode(moduleInfo)
-            setRootModuleNode(moduleNode)
             moduleIdNodeMap.set(moduleInfo.id, moduleNode)
         },
         generateBundle(){
-            const rootModuleNode = getRootModuleNode()
+            const rootModuleId = getRootModuleId()
+            const rootModuleNode = moduleIdNodeMap.get(rootModuleId)
             if(!rootModuleNode){
                 console.error('Failed to generate entry module');
                 return
