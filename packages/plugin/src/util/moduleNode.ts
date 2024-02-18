@@ -4,7 +4,6 @@ export type ModuleInfo = {
     id: string;
     importedIds: string[];
     dynamicallyImportedIds: string[]
-    importers: any;
 }
 
 /** 获取模块所有引用的 模块id */
