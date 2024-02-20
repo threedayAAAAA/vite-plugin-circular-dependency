@@ -25,7 +25,7 @@ export default {
                     module: 'ESNext',
                 },
             },
-            useTsconfigDeclarationDir: true, // 使用tsconfig中的声明文件目录配置
+            useTsconfigDeclarationDir: true,
         }),
         terser()
     ]

@@ -11,7 +11,6 @@ A framework-agnostic build-time Vite plugin designed to detect circular imports 
 // a scan report will be generated to the specified path
 export default defineConfig({
   plugins: [
-    vue(),
     circleDependency({
         outputFilePath: './circleDep'
     })

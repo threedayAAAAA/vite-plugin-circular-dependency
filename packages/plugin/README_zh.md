@@ -9,7 +9,6 @@
 // 扫描报告将生成到指定路径
 export default defineConfig({
   plugins: [
-    vue(),
     circleDependency({
         outputFilePath: './circleDep'
     })

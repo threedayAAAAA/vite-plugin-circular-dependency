@@ -1,3 +1,3 @@
 export * from './moduleNode'
 export * from './moduleTree'
-export * from './print'
+export * from './output'

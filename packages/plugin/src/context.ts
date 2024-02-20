@@ -7,14 +7,14 @@ import { join } from 'node:path'
 import { relative } from 'node:path'
 
 export function createContext(options: Options): Context{
-    const formatedOptions = formatOptions(options)
+    const formattedOptions = formatOptions(options)
     
-    const { include, exclude } = formatedOptions
+    const { include, exclude } = formattedOptions
     const filter = createFilter(include, exclude)
 
     const { getRootModuleNode, setRootModuleNode, moduleIdNodeMap } = initModule()
     return {
-        ...formatedOptions,
+        ...formattedOptions,
         filter,
         getRootModuleNode,
         setRootModuleNode,

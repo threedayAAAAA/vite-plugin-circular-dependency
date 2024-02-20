@@ -3,7 +3,7 @@ import type { Options } from "./types/options";
 import type { Plugin } from 'vite';
 
 import { 
-    generateModuleTree, generateCircleNodeMap, printCircleNodes,
+    generateModuleTree, generateCircleNodeMap, processCircleNodes,
     generateModuleNode 
 } from './util'
 import { createContext }  from './context'
@@ -33,12 +33,11 @@ export default (options: Options) => {
                 console.error('Failed to generate entry module');
                 return
             }
-            /** 生成模块的依赖树 */
+            /** generate module dependency tree */
             generateModuleTree(rootModuleNode, moduleIdNodeMap)
-            /** 生成模块成环节点的map */
+            /** generate a map of circle nodes */
             const circleNodeMap = generateCircleNodeMap(rootModuleNode)
-            /** 打印成环的节点 */
-            printCircleNodes(ctx, circleNodeMap)
+            processCircleNodes (ctx, circleNodeMap)
         }
     } as unknown as Plugin
 }

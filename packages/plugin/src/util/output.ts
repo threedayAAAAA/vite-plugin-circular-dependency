@@ -6,10 +6,10 @@ import { writeFileSync } from 'node:fs'
 
 type CircleData = Record<string, ModuleNode['moduleId'][][]>
 
-/** 打印成环的节点 */
-export function printCircleNodes(ctx: Context, circleNodesMap: Map<string, ModuleNode[]>){
+/** handle circle nodes */
+export function processCircleNodes (ctx: Context, circleNodesMap: Map<string, ModuleNode[]>){
     const data = formatData(ctx, circleNodesMap)
-    print(ctx, data)
+    outputCircleData(ctx, data)
     validateCircleData(ctx, data)
 }
 
@@ -19,15 +19,10 @@ function validateCircleData(ctx: Context, data: CircleData){
     }
 }
 
-/** 格式化成环节点的数据 */
 function formatData(ctx: Context, data: Map<string, ModuleNode[]>): CircleData{
-    return ctx.formatOut(
-        groupByFirstNodePath(
-            transformNodeData(ctx, 
-                filterNodes(data)
-            )
-        )
-    )
+    const moduleNodeIDs = transformNodeData(ctx, filterNodes(data))
+    const groupedNodeIDs = groupByFirstNodePath(moduleNodeIDs)
+    return ctx.formatOut(groupedNodeIDs)
 }
 
 function filterNodes(circleNodesMap: Map<string, ModuleNode[]>){
@@ -49,17 +44,14 @@ function groupByFirstNodePath(data: ModuleNode['moduleId'][][]){
     }, {} as Record<string, ModuleNode['moduleId'][][]>)
 }
 
-
-function print(ctx: Context, data: CircleData){
+function outputCircleData(ctx: Context, data: CircleData){
     ctx.outputFilePath ? outputToFile(ctx, data): consolePrint(ctx, data)
 }
 
-/** 输出至文件 */
 function outputToFile(ctx: Context, data: CircleData){
     writeFileSync(ctx.outputFilePath, JSON.stringify(data, null, '\t'))
 }
 
-/** 控制台打印 */
 function consolePrint(ctx: Context, data: CircleData){
     Object.entries(data).forEach(item => {
         const [entryModuleId, moduleNodes] = item
