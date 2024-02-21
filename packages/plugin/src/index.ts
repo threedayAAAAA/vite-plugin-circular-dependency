@@ -12,8 +12,8 @@ export default (options: Options) => {
     const ctx = createContext(options)
     const { 
         filter,
-        getRootModuleId,
-        setRootModuleId,
+        getRootModuleNode,
+        handleLoadModule,
         moduleIdNodeMap
      } = ctx
     return {
@@ -23,7 +23,7 @@ export default (options: Options) => {
                 return
             }
 
-            setRootModuleId(id)
+            handleLoadModule(id)
         },
         moduleParsed: (moduleInfo: ModuleInfo) => {
             const { id } = moduleInfo
@@ -34,8 +34,7 @@ export default (options: Options) => {
             moduleIdNodeMap.set(moduleInfo.id, moduleNode)
         },
         generateBundle(){
-            const rootModuleId = getRootModuleId()
-            const rootModuleNode = moduleIdNodeMap.get(rootModuleId)
+            const rootModuleNode = getRootModuleNode()
             if(!rootModuleNode){
                 console.error('Failed to generate entry module');
                 return

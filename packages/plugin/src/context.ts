@@ -12,12 +12,12 @@ export function createContext(options: Options): Context{
     const { include, exclude } = formatedOptions
     const filter = createFilter(include, exclude)
 
-    const { getRootModuleId, setRootModuleId, moduleIdNodeMap } = initModule()
+    const { getRootModuleNode, handleLoadModule, moduleIdNodeMap } = initModule()
     return {
         ...formatedOptions,
         filter,
-        getRootModuleId,
-        setRootModuleId,
+        getRootModuleNode,
+        handleLoadModule,
         moduleIdNodeMap
     }
 }
@@ -56,8 +56,8 @@ function initModule(){
     const { getRootModuleId, setRootModuleId } = initRootModuleId()
     const moduleIdNodeMap = new Map<string, ModuleNode>()
     return {
-        getRootModuleId,
-        setRootModuleId,
+        getRootModuleNode: () => moduleIdNodeMap.get(getRootModuleId()),
+        handleLoadModule: setRootModuleId,
         moduleIdNodeMap
     }
 }
