@@ -13,18 +13,24 @@ export default (options: Options) => {
     const { 
         filter,
         getRootModuleNode,
-        setRootModuleNode,
+        handleLoadModule,
         moduleIdNodeMap
      } = ctx
     return {
         name: 'vite-plugin-circular-dependency',
+        load: (id: string) => {
+            if(!filter(id)){
+                return
+            }
+
+            handleLoadModule(id)
+        },
         moduleParsed: (moduleInfo: ModuleInfo) => {
             const { id } = moduleInfo
             if(!filter(id)){
                 return
             }
             const moduleNode = generateModuleNode(moduleInfo)
-            setRootModuleNode(moduleNode)
             moduleIdNodeMap.set(moduleInfo.id, moduleNode)
         },
         generateBundle(){
