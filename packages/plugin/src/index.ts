@@ -8,7 +8,7 @@ import {
 } from './util'
 import { createContext }  from './context'
 
-export default (options: Options) => {
+export default (options?: Options) => {
     const ctx = createContext(options)
     const { 
         filter,

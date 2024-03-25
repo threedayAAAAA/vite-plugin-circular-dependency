@@ -6,7 +6,7 @@ import { initRootModuleId } from './util'
 import { join } from 'node:path'
 import { relative } from 'node:path'
 
-export function createContext(options: Options): Context{
+export function createContext(options?: Options): Context{
     const formattedOptions = formatOptions(options)
     
     const { include, exclude } = formattedOptions
@@ -22,7 +22,7 @@ export function createContext(options: Options): Context{
     }
 }
 
-function formatOptions(options: Options): Required<Options>{
+function formatOptions(options?: Options): Required<Options>{
     let { 
         include = [/\.[jt]sx?$/, /\.vue$/, /\.vue\?vue/, /\.svelte$/], 
         exclude = [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/],
@@ -30,7 +30,7 @@ function formatOptions(options: Options): Required<Options>{
         circleImportThrowErr = true,
         formatOutModulePath,
         formatOut,
-    } = options
+    } = options ?? {}
     if(outputFilePath){
         outputFilePath = join(process.cwd(), outputFilePath)
     }
