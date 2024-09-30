@@ -7,6 +7,7 @@ export default defineConfig({
     vue(),
     circleDependency({
       outputFilePath: "./circleDep",
+      outputInteractiveFilePath: "./circleDep.html",
       circleImportThrowErr: true,
       // ignoreDynamicImport: true,
       // exclude: ["src/dasync_module/indirectCircleDep/router/config.ts"],
