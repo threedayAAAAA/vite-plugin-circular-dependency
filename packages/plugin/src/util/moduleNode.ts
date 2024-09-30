@@ -1,34 +1,42 @@
-import { ModuleNode } from '../module/moduleNode'
+import type { Context } from "../types";
+
+import { ModuleNode } from "../module/moduleNode";
 
 export type ModuleInfo = {
-    id: string;
-    importedIds: string[];
-    dynamicallyImportedIds: string[]
+  id: string;
+  importedIds: string[];
+  dynamicallyImportedIds: string[];
+  code: string | null;
+};
+
+/** Get all imported module ids of the module */
+export function getModuleImportIds(
+  moduleInfo: ModuleInfo,
+  ctx: Context
+): string[] {
+  const { importedIds, dynamicallyImportedIds } = moduleInfo;
+  return ctx.ignoreDynamicImport
+    ? importedIds
+    : [...importedIds, ...dynamicallyImportedIds];
 }
 
-/** 获取模块所有引用的 模块id */
-export function getModuleImportIds(moduleInfo: ModuleInfo): string[]{
-    const { importedIds, dynamicallyImportedIds } = moduleInfo
-    return [...importedIds, ...dynamicallyImportedIds]
+/** Factory function to generate module nodes */
+export function generateModuleNode(moduleInfo: ModuleInfo, ctx: Context) {
+  const importerModuleIds = getModuleImportIds(moduleInfo, ctx);
+  const { id } = moduleInfo;
+  return new ModuleNode(id, importerModuleIds);
 }
 
-/** 生产模块节点的工厂函数 */
-export function generateModuleNode(moduleInfo: ModuleInfo){
-    const importerModuleIds = getModuleImportIds(moduleInfo)
-    const { id } = moduleInfo
-    return new ModuleNode(id, importerModuleIds)
-}
-
-export function initRootModuleId(){
-    let rootModuleId: string
-    return {
-        getRootModuleId(){
-            return rootModuleId
-        },
-        setRootModuleId(moduleId: string){
-            if(!rootModuleId){
-                rootModuleId = moduleId
-            }
-        }
-    }
+export function initRootModuleId() {
+  let rootModuleId: string;
+  return {
+    getRootModuleId() {
+      return rootModuleId;
+    },
+    setRootModuleId(moduleId: string) {
+      if (!rootModuleId) {
+        rootModuleId = moduleId;
+      }
+    },
+  };
 }
