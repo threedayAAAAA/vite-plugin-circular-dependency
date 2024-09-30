@@ -1,5 +1,8 @@
 {
-    "include": ["src/index.ts"],
+    "include": [
+        "src/index.ts",
+        "src/**/*.d.ts"
+    ],
     "exclude": ["node_modules", "dist"],
     "compilerOptions": {
         "declaration": true,

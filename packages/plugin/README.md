@@ -75,6 +75,9 @@ export interface Options {
    */
   outputFilePath?: string;
 
+  // If configured, will output the products of circular references as an interactive HTML application to the specified address
+  outputInteractiveFilePath?: string;
+
   /**
    * Whether to throw an error when a circular import exists
    *

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Dependency Graph with Vis.js</title>
+    <style>
+      #network {
+        width: 100%;
+        height: 600px;
+      }
+    </style>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+  </head>
+  <body>
+    <div id="network"></div>
+    <script>
+      const transformJson = (input) => {
+        const output = {};
+        for (const key in input) {
+          const dependencies = input[key];
+          const transformedDependencies = dependencies.map((depArray) => {
+            return [...depArray, key];
+          });
+          output[key] = transformedDependencies;
+        }
+        return output;
+      };
+      const originData = {"src/sync_module/circleDep/circleDep1.js":[["src/sync_module/circleDep/circleDep1.js","src/sync_module/circleDep/circleDep2.js"],["src/sync_module/circleDep/circleDep1.js","src/sync_module/circleDep/circleDep3.js"]],"src/sync_module/indirectCircleDep/indirectCircleDep1.js":[["src/sync_module/indirectCircleDep/indirectCircleDep1.js","src/sync_module/indirectCircleDep/indirectCircleDep2.js","src/sync_module/indirectCircleDep/indirectCircleDep3.js"]],"src/sync_module/depSelf/depSelf1.js":[["src/sync_module/depSelf/depSelf1.js"]],"src/dasync_module/circleDep/data/data1.js":[["src/dasync_module/circleDep/data/data1.js","src/dasync_module/circleDep/data/data2.js"],["src/dasync_module/circleDep/data/data1.js","src/dasync_module/circleDep/data/data3.js"]],"src/dasync_module/depSelf/depSelf.js":[["src/dasync_module/depSelf/depSelf.js"]],"src/dasync_module/indirectCircleDep/components/cmp1.ts":[["src/dasync_module/indirectCircleDep/components/cmp1.ts","src/dasync_module/indirectCircleDep/components/cmp2.ts"]]}
+      const data = transformJson(originData);
+
+      const nodes = new Set();
+      const edges = [];
+
+      // 处理数据，构建节点和边
+      for (const key in data) {
+        data[key].forEach((linkArray) => {
+          for (let i = 0; i < linkArray.length - 1; i++) {
+            edges.push({ from: linkArray[i], to: linkArray[i + 1] });
+            nodes.add(linkArray[i]);
+            nodes.add(linkArray[i + 1]);
+          }
+        });
+      }
+
+      const nodesArray = Array.from(nodes).map((node) => {
+        const fileName = node.split("/").pop(); // 获取文件名
+        return { id: node, label: fileName, title: node }; // 设置悬浮显示完整路径
+      });
+
+      // 创建网络图
+      const container = document.getElementById("network");
+      const dataVis = {
+        nodes: new vis.DataSet(nodesArray),
+        edges: new vis.DataSet(edges),
+      };
+      const options = {
+        physics: true,
+        manipulation: {
+          enabled: false,
+        },
+        nodes: {
+          // 添加节点形状设置
+          shape: "dot", // 设置节点为圆形
+          size: 8, // 设置节点大小
+        },
+        edges: {
+          arrows: {
+            to: { enabled: true, scaleFactor: 1, type: "arrow" }, // 添加箭头
+          },
+        },
+      };
+      const network = new vis.Network(container, dataVis, options);
+    </script>
+  </body>
+</html>
