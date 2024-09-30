@@ -1,13 +1,13 @@
 import type { ModuleNode } from "../module/moduleNode";
 
-/** 生成模块的依赖树 */
+/** Generate the dependency tree of modules */
 export function generateModuleTree(
   rootModuleNode: ModuleNode,
   moduleIdNodeMap: Map<string, ModuleNode>
 ) {
   const moduleNodeCreatedSet = new Set<string>();
 
-  /** 获取某个模块子模块节点 */
+  /** Get child module nodes of a specific module */
   function getModuleChildNodes(node: ModuleNode): ModuleNode[] {
     const { importerModuleIds } = node;
     return importerModuleIds
@@ -15,18 +15,18 @@ export function generateModuleTree(
       .filter(Boolean) as ModuleNode[];
   }
 
-  /** 深度优先遍历生成模块依赖树 */
+  /** Depth-first traversal to generate the module dependency tree */
   function recursionBuild(node: ModuleNode) {
-    // 每次遍历先把自己放入已生成的set中 避免自己引用自己的场景
+    // Add the current node to the created set to avoid self-referencing
     moduleNodeCreatedSet.add(node.moduleId);
-    // 获取子模块节点
+    // Get child module nodes
     const childNodes = getModuleChildNodes(node);
     childNodes.forEach((childNode) => {
-      // 当前子树未生成 接着递归
+      // If the current subtree is not generated, continue recursion
       if (!moduleNodeCreatedSet.has(childNode.moduleId)) {
         recursionBuild(childNode);
       }
-      // 将当前子树与父节点关联
+      // Associate the current subtree with the parent node
       if (!node.children) {
         node.children = new Set();
       }
@@ -36,21 +36,21 @@ export function generateModuleTree(
   recursionBuild(rootModuleNode);
 }
 
-/** 生成模块成环节点的map */
+/** Generate a map of nodes that form cycles */
 export function generateCircleNodeMap(rootModuleNode: ModuleNode) {
-  // 用来存最后遍历出来的有循环依赖的节点
+  // Map to store nodes with circular dependencies found during traversal
   const circleNodesMap = new Map<string, ModuleNode[]>();
-  // 将已经dfs过的节点存起来 避免重复遍历
+  // Set to store nodes that have been DFS traversed to avoid re-traversal
   const visitedNodeIdSet = new Set<string>();
 
-  /** 深度优先遍历树 用一个数组将沿途的节点都记录下来 如果发现当前节点之前路径已经访问过了 证明有环 */
+  /** Depth-first traversal of the tree, recording nodes along the way. If a node is found in the path, it indicates a cycle */
   function depthFirstTraversal(node: ModuleNode, visitPathSet: Set<string>) {
     const { moduleId, children } = node;
-    // 已经被访问过直接结束
+    // End if already visited
     if (visitedNodeIdSet.has(moduleId)) {
       return;
     }
-    // 先将自己加入路径中 避免出现自己引用自己的场景
+    // Add the current node to the path to avoid self-referencing
     visitPathSet.add(moduleId);
     children?.forEach((childNode) => {
       const { moduleId: childModuleId } = childNode;
@@ -65,7 +65,7 @@ export function generateCircleNodeMap(rootModuleNode: ModuleNode) {
       }
     });
     visitedNodeIdSet.add(moduleId);
-    // 将当前节点从路径中弹出
+    // Remove the current node from the path
     visitPathSet.delete(moduleId);
   }
 
@@ -73,7 +73,7 @@ export function generateCircleNodeMap(rootModuleNode: ModuleNode) {
   return circleNodesMap;
 }
 
-/** 生成某个节点的 环上的所有节点 */
+/** Generate all nodes on the cycle of a specific node */
 function generateCircleNodes(
   node: ModuleNode,
   visitPathSet: Set<string>
@@ -92,7 +92,7 @@ function generateCircleNodes(
   return result;
 }
 
-/** 将环节点 塞入map */
+/** Insert cycle nodes into the map */
 function insertCircleNodesToMap(
   circleNodes: ModuleNode[],
   circleNodesMap: Map<string, ModuleNode[]>
