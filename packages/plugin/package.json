@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-circular-dependency",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Detect circular dependencies",
   "module": "./dist/index.mjs",
   "scripts": {
