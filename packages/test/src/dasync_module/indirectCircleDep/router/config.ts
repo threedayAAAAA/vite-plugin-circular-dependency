@@ -1,3 +1,4 @@
+// @circular-ignore
 export default [
   {
     name: "cmp1",

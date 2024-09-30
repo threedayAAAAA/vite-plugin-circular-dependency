@@ -50,6 +50,11 @@ export interface Options {
    * Whether to ignore dynamic imports during the scan.
    *
    * @default false
+   *
+   * If the file has the @circular-ignore tag, the module will also be ignored for circular dependency scanning.
+   * Example:
+   * // @circular-ignore
+   * import { example } from './exampleModule';
    */
   ignoreDynamicImport?: boolean;
 }

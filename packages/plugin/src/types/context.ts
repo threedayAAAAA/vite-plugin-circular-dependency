@@ -6,4 +6,5 @@ export type Context = {
   getRootModuleNode: () => ModuleNode | undefined;
   handleLoadModule: (moduleId: string) => void;
   moduleIdNodeMap: Map<string, ModuleNode>;
+  processIgnore: (id: string, code: string) => void;
 } & Required<Options>;

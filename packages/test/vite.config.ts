@@ -8,7 +8,7 @@ export default defineConfig({
     circleDependency({
       outputFilePath: "./circleDep",
       circleImportThrowErr: true,
-      ignoreDynamicImport: true,
+      // ignoreDynamicImport: true,
       // exclude: ["src/dasync_module/indirectCircleDep/router/config.ts"],
     }),
   ],

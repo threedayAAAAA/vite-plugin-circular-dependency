@@ -12,14 +12,24 @@ import { createContext } from "./context";
 
 export default (options?: Options) => {
   const ctx = createContext(options);
-  const { filter, getRootModuleNode, handleLoadModule, moduleIdNodeMap } = ctx;
+  const {
+    filter,
+    getRootModuleNode,
+    handleLoadModule,
+    moduleIdNodeMap,
+    processIgnore,
+  } = ctx;
   return {
     name: "vite-plugin-circular-dependency",
+    enforce: "pre",
     load: (id: string) => {
       if (!filter(id)) {
         return;
       }
       handleLoadModule(id);
+    },
+    transform(code: string, id: string) {
+      processIgnore(id, code);
     },
     moduleParsed: (moduleInfo: ModuleInfo) => {
       const { id } = moduleInfo;
