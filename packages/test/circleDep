@@ -21,6 +21,13 @@
 			"src/sync_module/depSelf/depSelf1.js"
 		]
 	],
+	"src/sync_module/loop/loop1.js": [
+		[
+			"src/sync_module/loop/loop1.js",
+			"src/sync_module/loop/loop2.js",
+			"src/sync_module/loop/loop3.js"
+		]
+	],
 	"src/dasync_module/circleDep/data/data1.js": [
 		[
 			"src/dasync_module/circleDep/data/data1.js",

@@ -1,5 +1,5 @@
 import typescript from "rollup-plugin-typescript2";
-import { terser } from "rollup-plugin-terser";
+import terser from "@rollup/plugin-terser";
 import html from "rollup-plugin-html";
 
 export default {

@@ -86,7 +86,7 @@ function generateCircleNodes(
       break;
     }
     currentNode = Array.from(currentNode.children).find((item) =>
-      visitPathSet.has(item.moduleId)
+      visitPathSet.has(item.moduleId) && !result.includes(item)
     );
   } while (currentNode && currentNode !== node);
   return result;
